@@ -113,12 +113,35 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      let counter = 0;
+      let matrix = this.rows();
+
+      for (let i = 0; i < matrix.length; i++) {
+        let columnValue = matrix[i][colIndex];
+
+        if (columnValue === 1) {
+          counter++;
+        }
+
+        if (counter === 2) {
+          break;
+        }
+      }
+
+      return Boolean(counter === 2);
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      let n = this.rows().length;
+
+      for (let i = 0; i < n; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+
+      return false;
     },
 
 
