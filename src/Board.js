@@ -151,13 +151,135 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      let populatedNumTimes = 0;
+      let matrix = this.rows();
+
+      // (matrix.length - etc...)
+      for (let i = 0; i < (matrix.length - majorDiagonalColumnIndexAtFirstRow); i++) {
+        let currColumnValue = matrix[i][majorDiagonalColumnIndexAtFirstRow + i];
+
+        if (currColumnValue) {
+          populatedNumTimes += 1;
+        }
+
+        if (populatedNumTimes === 2) {
+          break;
+        }
+      }
+
+      return Boolean(populatedNumTimes === 2);
     },
+
+    /*
+
+    // PSEUDOCODE - EDIT :)
+
+    // declare a variable called populatedNumTimes init with 0
+    // declare a variable called matrix init with the matrix
+
+    // NOTE: n is the amount of rows in the matrix (essentially length)
+    // iterate over the first (n - majorDiagonalColumnIndexAtFirstRow) rows of the matrix
+
+      // if
+      // declare a variable called `currentColumnValue` init with...
+      // ... the current row at column `majorDiagonalColumnIndexAtFirstRow` value
+         ... + current iteration num (NOT ADDING THIS PART)
+
+      // if the `currColumnValue` is populated (1)
+        // increment the value of 'populatedNumTimes' by 1
+
+      // if `populatedNumTimes` is 2
+        // break out of loop
+
+    // if populatedNumTimes is 2 or greater (maybe just 2  is fine since we're breaking out of loop)
+      // return true (because we encountered a conflict)
+    // else
+      // return false (because there is no conflict).
+    */
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      let hasConflict = false;
+      let matrix = this.rows();
+
+      for (let i = 0; i < matrix.length; i++) {
+        hasConflict = this.hasMajorDiagonalConflictAt(i);
+
+        if (hasConflict) {
+          return true;
+        }
+      }
+
+      // NOTE: May have to use -(matrix.length) + 1... maybe...
+
+      // for (let i = -1; i > -matrix.length; i--) {
+      //   hasConflict = this.hasMajorDiagonalConflictAt(i);
+
+      //   if (hasConflict) {
+      //     return true;
+      //   }
+      // }
+
+      return false;
+
+
+
+      // iterate starting from -1 and up to the negative matrix length
+      //   init hasConflict with the below...
+      //   ... invoke hasMajorDiagonalConflictAt, passing in the currentIndex
+      //   if hasConflict is true
+      //     return true
+
+      // return false (because if we end up getting to this line then no conflict were
+      //   encountered).
     },
+
+
+    /*
+    PSEUDO
+
+
+    // NOTE THE BELOW ITERATIONS WILL BE ACCESSING THE DIAGONALS THAT
+    // ARE AT POSTIVE INDEXES
+
+    // declare a variable called hasConflict init with false
+    // iterate over the length of the matrix
+      // init hasConflict with the below...
+         ... invoke hasMajorDiagonalConflictAt, passing in the currentIndex
+      // if hasConflict is true
+        // return true
+
+
+    // NOTE THE BELOW ITERATIONS WILL BE ACCESSING THE DIAGONALS THAT
+    // ARE AT NEGATIVE INDEXES
+
+
+    // iterate starting from -1 and up to the matrix length, but negative
+      // init hasConflict with the below...
+         ... invoke hasMajorDiagonalConflictAt, passing in the currentIndex
+      // if hasConflict is true
+        // return true
+
+    // return false (because if we end up getting to this line then no conflict were
+       encountered).
+
+
+    IOCE:
+
+    in:
+      - none
+    out:
+      - (Boolean): true if there is a conflict, false otherwise.
+    cons:
+      - none
+    edge:
+      - retu
+
+    */
+
+    /*
+    checks all diagonals from top-left to bottom-right
+    */
 
 
 
